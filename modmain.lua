@@ -223,6 +223,9 @@ end
 AddPrefabPostInit("forest", WorldPeriodicRemove)
 AddPrefabPostInit("cave", CavePeriodicRemove)
 
+--添加手动清理的功能
+GLOBAL.DoRemove = DoRemove
+
 --For Boat
 
 if GetModConfigData("boat_clean") then

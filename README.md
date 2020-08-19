@@ -18,6 +18,10 @@ Things that are in the players' inventory or containers, not include in the `whi
 
 BTW, server reboot will remove all tags.
 
+**Manual cleaning**
+
+Excute `DoClean()` in the console command and the server will do the cleaning check, which means if you want to do a complete cleanup, you need to run this code twice.
+
 **Whitelist:**
 
 - small creature such as Rabbit, Mole, Fireflies, and the like
@@ -68,6 +72,10 @@ The Blacklist is available now thanks to [gene9831](https://github.com/gene9831)
 **Backup your `whitelist.txt` and `blacklist.txt` because these two file will be emptied after mod update.**
 
 ## Changelog
+
+### Version 1.7.4
+
+- Add the feature of manual cleaning.
 
 ### Version 1.7.3
 
