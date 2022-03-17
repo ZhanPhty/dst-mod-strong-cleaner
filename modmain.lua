@@ -2,6 +2,7 @@ local TheNet = GLOBAL.TheNet
 local lang = TheNet:GetDefaultServerLanguage()
 local Vector3 = GLOBAL.Vector3
 local io = GLOBAL.io
+local TheSim = GLOBAL.TheSim
 
 local checkingdays = GetModConfigData("checking_days")
 local white_area = GetModConfigData("white_area")
@@ -141,7 +142,7 @@ end
 local function WhiteArea(inst)
     if white_area then
         local pos = Vector3(inst.Transform:GetWorldPosition())
-        entity_list = TheSim:FindEntities(pos.x, pos.y, pos.z, 4)
+        local entity_list = TheSim:FindEntities(pos.x, pos.y, pos.z, 4)
         for i, entity in pairs(entity_list) do
             if entity.prefab == "endtable" then
                 return false
@@ -233,20 +234,15 @@ if GetModConfigData("boat_clean") then
     local boat_delete_time = GetModConfigData("boat_clean") * 480
 
     local function starttimer(inst)
-        local players = inst.components.walkableplatform:GetEntitiesOnPlatform({"player"},nil)
-        if #players == 0 then
-            inst.components.timer:StartTimer("boatRemoval", boat_delete_time)
-            --print("计时器：开始")
-        end
+        inst.components.timer:StartTimer("boatRemoval", boat_delete_time)
+        -- print("计时器：开始")
     end
-
-    local function stoptimer(inst, obj)
-        if obj and obj:HasTag("player") then
-            inst.components.timer:StopTimer("boatRemoval")
-            --print("计时器：结束")
-        end
+    
+    local function stoptimer(inst)
+        inst.components.timer:StopTimer("boatRemoval")
+        -- print("计时器：结束")
     end
-
+    
     local function ontimerdone(inst)
         local players = inst.components.walkableplatform:GetEntitiesOnPlatform({"player"},nil)
         if #players == 0 then
@@ -254,18 +250,32 @@ if GetModConfigData("boat_clean") then
             print("计时器：删除船")
         end
     end
-
+    
     local function BoatAutoRemove(inst)
         if not GLOBAL.TheWorld.ismastersim then
             return inst
         end
         inst:AddComponent("timer")
-        inst:ListenForEvent("obj_got_on_platform", stoptimer )
-        inst:ListenForEvent("obj_got_off_platform", starttimer)
-        inst.components.timer:StartTimer("boatRemoval", boat_delete_time)
+        -- inst.components.timer:StartTimer("boatRemoval", boat_delete_time)
         inst:ListenForEvent("timerdone", ontimerdone)
+    
+        inst._OnPhysicsWake = inst.OnPhysicsWake
+        inst.OnPhysicsWake = function(...)
+            if inst._OnPhysicsWake then
+                inst._OnPhysicsWake(...)
+            end
+            stoptimer(inst)
+        end
+    
+        inst._OnPhysicsSleep = inst.OnPhysicsSleep
+        inst.OnPhysicsSleep = function(...)
+            if inst._OnPhysicsSleep then
+                inst._OnPhysicsSleep(...)
+            end
+            starttimer(inst)
+        end
     end
-
+    
     AddPrefabPostInit("boat", BoatAutoRemove)
     
 end

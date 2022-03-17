@@ -1,3 +1,4 @@
+---@diagnostic disable: lowercase-global
 name = "Strong Cleaner"
 description = [[
 A cleaning mod for your server.
@@ -12,7 +13,7 @@ Things that are in the players' inventory and containers or not include in the w
 BTW, server reboot will remove all tags.
 ]]
 author = "辣椒小皇纸"
-version = "1.7.4"
+version = "1.8.0"
 
 forumthread = ""
 
