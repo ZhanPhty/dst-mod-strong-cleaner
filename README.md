@@ -1,114 +1,118 @@
-# Strong Cleaner
+# 服务器清理Mod（自用）
 
-## Overview
+**清理机制：**
 
-This is a mod for the game of Don't Starve Together which is available in the Steam Workshop. 
+每20天（默认，可调整）检查地面的物品
+地面的物品第一次被检查，会添加标记
+被添加标记的物品在第二次检查时会被清理
+这意味着地面物品至少20天以上才会被清理
 
-A cleaning mod for your server.
+清理的日期是1、5、10、20、30、40、60、80、100，以此类推
 
-**Cleaning Mechanism:**
+白名单模式：只会清理地面且不包含在白名单的物品
+黑名单模式：只会包含在黑名单的物品
 
-It will check the things on the ground every 20 days(by default, configurable). Things that are checked the first time will be added tags. Things with tags that are previously added will be remove during the second round of checking. That means if everything on the ground will go through at least 20 days before removed.
+箱子及玩家身上，或者白名单里的物品，或者茶几附近的物品不会被清理（不想被清理请放在箱子里）
 
-The checking date is at the end of the day of 20,40,60,80,100,etc.
+另外，服务器重启会使物品标记丢失
 
-The mod will only remove things that are on the ground and not include in the `whitelist`.
+**手动清理**
 
-Things that are in the players' inventory or containers, not include in the `whitelist` or near the Endtables are secure.
+在控制台执行 `DoRemove()` 即可出发一次清理检查。如果想做一个完整的清理，那么需要运行两次这段代码。
 
-BTW, server reboot will remove all tags.
+**白名单:**
 
-**Manual cleaning**
+- 小动物：兔子、鼹鼠、萤火虫之类
+- 唯一的物件：远古钥匙、切斯特眼骨、天体灵球之类
+- 雕像
+- 打包好的包裹和礼物
+- 鹿角
+- 陷阱、狗牙陷阱、海星
+- 书
+- 月眼
+- 鞍
+- 芝士蛋糕
+- 南瓜灯
+- 海带
+- 浮木
+- 排箫
+- 触手棒和触手皮
+- 影刀
+- 影甲
+- 骨盔
+- 骨甲
+- 暗影香炉
+- 化石碎片
+- 暗影心脏
+- 生命护符
+- 救赎之心
+- 暖石
+- 唤星法杖、喚月法杖
+- 步行手杖、瞬移手杖
+- 格罗姆燃料
+- 食人花种子
+- 蜂王帽
+- 贝壳钟
+- 渔具箱
 
-Excute `DoClean()` in the console command and the server will do the cleaning check, which means if you want to do a complete cleanup, you need to run this code twice.
+Y你可以打开mod文件夹，找到一个叫做whitelist.txt的文件。把物品的代码名添加进去即可。每行一个物品，不要添加空格，例如：
 
-**Whitelist:**
-
-- small creature such as Rabbit, Mole, Fireflies, and the like
-- things that have the tag of `irreplaceable`, such as Ancient Key, Chester Eyebone and the like
-- Chess Pieces
-- Bundle and Gift Bundle
-- Deer Antler
-- Trap, Teeth Trap and Anenemy
-- Books
-- Moon Eyes
-- Saddle
-- Powcake
-- Pumpkin Lantern
-- Bull Kelp
-- Driftwood Piece
-- Panflute
-- Tentacle Spike and Tentacle Spots
-- Dark Sword
-- Night Armor
-- Bone Helm
-- Bone Armor
-- Shadow Thurible
-- Fossils
-- Shadow Atrium
-- Life Giving Amulet
-- Telltale Heart
-- Thermal Stone
-- Star Caller's Staff and Moon Caller's Staff
-- Cane and The Lazy Explorer
-- Glommer's Goop
-- Meat Bulb
-- Bee Queen Crown
-- Shells
-- Tackle Containers
-
-You can open the mod folder and find the file named `whitelist.txt`. Add the prefab name of the thing you want to add into the whitelist. One item per line, do not add any `space`, for example,
-
-```
+`
 poop
 log
 cutgrass
 twigs
 axe
-```
+`
 
-The Blacklist is available now thanks to [gene9831](https://github.com/gene9831). You can edit the `blacklist.txt` in the mod folder, two. The format of the file content is the same as whitelist.
+感谢 [gene9831](https://github.com/gene9831) ，现在引入黑名单模式。你可以在本mod的文件夹内修改`blacklist.txt`，方法与白名单类似。
 
-**Backup your `whitelist.txt` and `blacklist.txt` because these two file will be emptied after mod update.**
+**请备份 `whitelist.txt` 和 `blacklist.txt` 因为每次mod更新后这两个文件都会被清空！**
+**请备份 `whitelist.txt` 和 `blacklist.txt` 因为每次mod更新后这两个文件都会被清空！**
+**请备份 `whitelist.txt` 和 `blacklist.txt` 因为每次mod更新后这两个文件都会被清空！**
 
-## Changelog
+查询物品对应的代码：[点击跳转](https://zhuanlan.zhihu.com/p/34134405?utm_medium=social)
 
-### Version 1.7.4
+## 更新日志
 
-- Add the feature of manual cleaning.
+### 版本1.8.1
+- 黑名单添加：粪便、鸟便、腐烂的蛋、松果、节日
+- blacklist.txt 文件添加：幸运黄金（活动金元宝）、红包、节日红包
 
-### Version 1.7.3
+### 版本1.8.0
+- 船的清理改为一段时间内附近都没有玩家出现
 
-- Add Blacklist.
+### 版本1.7.4
+- 添加手动清理功能
 
-### Version 1.7.1
+### 版本1.7.3
+- 添加黑名单模式
 
-- Add Shells and Tackle Containers into the whitelist.
+### 版本1.7.1
+- 把贝壳钟及渔具箱添加到白名单
 
-### Version 1.7.0
+### 版本1.7.0
+- 玩家现在可以自己添加白名单了
 
-- Now players can modify their own whitelist.
+### 版本1.6.0
+- 船一段时间没有登陆后会清理，该功能默认关闭
 
-### Version 1.6.0
+### 版本1.5.0
+- 浮在海面的东西无论是否在白名单内都会被清理
 
-- Add automatical boats destroying when not landed for a spiecific days in game.
+### 版本1.4.0
+- 使用过触手棒、影刀和影甲会被清理
 
-### Version 1.5.0
+### 版本1.3.0
+- 茶几附近的物品不会被清理，可以关闭该功能
 
-- Items floating on the sea will be removed whether in the whitelist or not.
-
-### Version 1.4.0
-
-- Tentaclespike, Armor Sanity and Sword Sanity will be removed if the fitness use percent is < 100%.
-
-### Version 1.3.0
-
-- Things near Endtables will not be removed.
-
-### Version 1.2.1
-
-- Add Configuration for cleaning checking period.
+### 版本1.2.1
+- 可修改清理检查周期
 
 ## License
 
 Released under the [GNU GENERAL PUBLIC LICENSE](https://www.gnu.org/licenses/gpl-3.0.en.html)
+
+## 源代码
+
+GitHub源代码: https://github.com/jupitersh/dst-mod-strong-cleaner
