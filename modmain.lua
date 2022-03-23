@@ -53,6 +53,13 @@ local blacklist = {
     "spoiled_food",             --腐烂食物
     "houndstooth",              --狗牙
     "stinger",                  --蜂刺
+    "poop",                     --粪便
+    "guano",                    --鸟便
+    "rottenegg",                --腐烂的蛋
+    "pinecone",                 --松果
+    -- "lucky_goldnugget",         --幸运黄金（活动金元宝）
+    -- "redpouch",                 --红包
+    -- "redpouch_yotp",            --节日红包
 }
 
 local whitetag = {
