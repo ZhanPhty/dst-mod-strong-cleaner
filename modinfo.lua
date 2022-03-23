@@ -1,19 +1,22 @@
 ---@diagnostic disable: lowercase-global
-name = "Strong Cleaner"
+name = "Strong Cleaner(自用)"
 description = [[
-A cleaning mod for your server.
-Cleaning Mechanism:
-It will check the things on the ground every 20 days(by default, configurable).
-Things that are check the first time will be added tags.
-Things with tags that are previously added will be remove during the second round of checking.
-That means if something will go through at least 20 days before removed.
-The checking date is at the end of the day of 20,40,60,80,100,etc.
-The mod will only remove things that are on the ground and not include in the whitelist.
-Things that are in the players' inventory and containers or not include in the whitelist are secure.
-BTW, server reboot will remove all tags.
+服务器清理Mod
+清理机制：
+每20天（默认，可调整）检查地面的物品
+地面的物品第一次被检查，会添加标记
+被添加标记的物品在第二次检查时会被清理
+这意味着地面物品至少20天以上才会被清理
+
+清理的日期是1、5、10、20、30、40、60、80、100，以此类推
+
+本Mod只会清理地面且不包含在白名单的物品
+玩家身上及玩家身上，或者白名单里的物品，或者茶几附近的物品不会被清理
+
+另外，服务器重启会使物品标记丢失
 ]]
 author = "辣椒小皇纸"
-version = "1.8.0"
+version = "1.8.1"
 
 forumthread = ""
 
@@ -36,30 +39,34 @@ configuration_options =
 {
 	{
 		name = "checking_days",
-		label = "Checking Days",
+		label = "清理间隔",
 		hover = "Checking Period清理间隔",
 		options =	{
+                        {description = "1", data = 1, hover = ""},
+                        {description = "5", data = 5, hover = ""},
 						{description = "10", data = 10, hover = ""},
 						{description = "20", data = 20, hover = ""},
 						{description = "30", data = 30, hover = ""},
 						{description = "40", data = 40, hover = ""},
 						{description = "50", data = 50, hover = ""},
+                        {description = "80", data = 80, hover = ""},
+                        {description = "100", data = 100, hover = ""},
 					},
 		default = 20,
 	},
     {
         name = "clean_mode",
-        label = "Clean Mode",
+        label = "清理模式",
         hover = "Whitelist mode or Blacklist mode白名单模式或者黑名单模式",
         options =   {
                         {description = "Whitelist", data = 0, hover = ""},
                         {description = "Blacklist", data = 1, hover = ""},
                     },
-        default = 0,
+        default = 1,
     },
     {
         name = "white_area",
-        label = "White Area",
+        label = "茶几附近不清理",
         hover = "Things near the tables will not be removed茶几附近的物品不清理",
         options =   {
                         {description = "Yes", data = true, hover = ""},
@@ -69,8 +76,8 @@ configuration_options =
     },
     {
         name = "boat_clean",
-        label = "Boat Clean",
-        hover = "Destroy boats that were not used for a specific days.",
+        label = "清理未使用的船",
+        hover = "Destroy boats that were not used for a specific days销毁特定日期未使用的船只",
         options =   {
                         {description = "No", data = false, hover = ""},
                         {description = "180 days in game", data = 180, hover = ""},
